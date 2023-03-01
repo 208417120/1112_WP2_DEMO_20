@@ -4,7 +4,7 @@ CREATE TABLE  card_20 (
     descrip varchar(255),
     category varchar(255),
     img varchar(255),
-    remote_img varchar(255),
+    remote_img varchar(255)
 )
 
 INSERT INTO card_20 (id, title, descrip,category,img,remote_img)
