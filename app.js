@@ -4,11 +4,13 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+const cors = require('cors')
 const dotenv = require('dotenv');
 dotenv.config();
 
 const db = require('./utils/database');
-// const testDB = require('./utils/test-db');
+// const textDB = require('./utils/text-db');
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -16,7 +18,8 @@ var usersRouter = require('./routes/users');
 const cardRouter_20 = require('./routes/card_20');
 const card2Router_20 = require('./routes/card2_20');
 
-const card2ApiRouter_20 = require('./routes/api/apiCard2router_20');
+const card2ApiRouter_20 = require('./routes/api/apiCard2Router_20');
+const apiMenuRouter_20 = require('./routes/api/apiMenuRouter_20')
 
 var app = express();
 
@@ -30,20 +33,24 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(cors());
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 app.use('/card_20', cardRouter_20);
 app.use('/card2_20', card2Router_20);
+
 app.use('/api/card2_20', card2ApiRouter_20);
+app.use('/api/node_menu_20',apiMenuRouter_20);
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function (err, req, res, next) {
+app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
